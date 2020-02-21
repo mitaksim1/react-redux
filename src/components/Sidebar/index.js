@@ -1,39 +1,23 @@
-import React, { Component } from 'react';
+import React from 'react';
+// connect : pour avoir accès aux modules qui sont dans le reducer 
+// connect suit le concept de high order component (partage d'information à un composant)
+import { connect } from 'react-redux';
 
-export default class Sidebar extends Component {
-    state = {
-        modules: [
-            { 
-                id: 1, title: 'Start avec React', lessons: [
-                {id: 1, title: 'Cours 1'},
-                {id: 2, title: 'Cours 2'},
-                ],
-            },
-            {
-            id: 2, title: 'On apprend Redux', lessons: [
-                {id: 3, title: 'Cours 3'},
-                {id: 4, title: 'Cours 4'},
-                ],
-            }   
-        ]
-    };
-
-    render() {
-
-        const { modules } = this.state;
-        return (
-            <aside>
-                {modules.map(module => (
-                    <div key={module.id}>
-                        <strong>{module.title}</strong>
-                        <ul>
-                            {module.lessons.map(lesson => (
-                                <li key={lesson.id}>{lesson.title}</li>
-                            ))}
-                        </ul>
-                    </div>
+const Sidebar = ({ modules }) => (
+    <aside>
+    {modules.map(module => (
+        <div key={module.id}>
+            <strong>{module.title}</strong>
+            <ul>
+                {module.lessons.map(lesson => (
+                    <li key={lesson.id}>{lesson.title}</li>
                 ))}
-            </aside>
-        );
-    }
-}
+            </ul>
+        </div>
+    ))}
+</aside>
+);
+
+// modules: nom choisi pour la propriété qui va stocker le state de reducer 
+// Sidebar devient le deuxième paramètre
+export default connect(state => ({ modules: state })) (Sidebar);
