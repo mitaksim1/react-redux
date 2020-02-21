@@ -9,7 +9,7 @@ import * as CourseActions from '../../store/actions/course';
 // quand on utilise la fonction connect() on a accès aussi à dispatch 
 // qui nous permettra de dispatcher des actions à redux
 // ces actions seront "entendus" par tous les reducers de l'application
-const Sidebar = ({ modules, dispatch }) => (
+const Sidebar = ({ modules, toggleLesson}) => (
     <aside>
     {modules.map(module => (
         <div key={module.id}>
@@ -18,7 +18,7 @@ const Sidebar = ({ modules, dispatch }) => (
                 {module.lessons.map(lesson => (
                     <li key={lesson.id}>
                     {lesson.title}
-                    <button onClick={() => dispatch(CourseActions.toggleLesson(module, lesson))}>
+                    <button onClick={() => toggleLesson(module, lesson)}>
                     Selecionar
                     </button>
                     </li>
@@ -29,6 +29,15 @@ const Sidebar = ({ modules, dispatch }) => (
 </aside>
 );
 
+// connect(state => ({ modules: state.course.modules })) (Sidebar);
+const mapStateToProps = state => ({
+    modules: state.course.modules
+});
+
+const mapDispatchToProps = dispatch => ({
+    toggleLesson: (module, lesson) => dispatch(CourseActions.toggleLesson(module, lesson))
+})
+
 // modules: nom choisi pour la propriété qui va stocker le state de reducer 
 // Sidebar devient le deuxième paramètre
-export default connect(state => ({ modules: state.course.modules })) (Sidebar);
+export default connect(mapStateToProps, mapDispatchToProps) (Sidebar);
