@@ -20,4 +20,4 @@ const Sidebar = ({ modules }) => (
 
 // modules: nom choisi pour la propriété qui va stocker le state de reducer 
 // Sidebar devient le deuxième paramètre
-export default connect(state => ({ modules: state })) (Sidebar);
+export default connect(state => ({ modules: state.modules })) (Sidebar);
