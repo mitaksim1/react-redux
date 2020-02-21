@@ -3,13 +3,9 @@ import React from 'react';
 // connect suit le concept de high order component (partage d'information à un composant)
 import { connect } from 'react-redux';
 
-function toggleLesson(module, lesson) {
-    return {
-        type: 'TOGGLE_LESSON',
-        module,
-        lesson,
-    };
-}
+// import de toutes les actions de courses dans l'objet courseActions
+import * as CourseActions from '../../store/actions/course';
+
 // quand on utilise la fonction connect() on a accès aussi à dispatch 
 // qui nous permettra de dispatcher des actions à redux
 // ces actions seront "entendus" par tous les reducers de l'application
@@ -22,7 +18,7 @@ const Sidebar = ({ modules, dispatch }) => (
                 {module.lessons.map(lesson => (
                     <li key={lesson.id}>
                     {lesson.title}
-                    <button onClick={() => dispatch(toggleLesson(module, lesson))}>
+                    <button onClick={() => dispatch(CourseActions.toggleLesson(module, lesson))}>
                     Selecionar
                     </button>
                     </li>
@@ -35,4 +31,4 @@ const Sidebar = ({ modules, dispatch }) => (
 
 // modules: nom choisi pour la propriété qui va stocker le state de reducer 
 // Sidebar devient le deuxième paramètre
-export default connect(state => ({ modules: state.modules })) (Sidebar);
+export default connect(state => ({ modules: state.course.modules })) (Sidebar);
