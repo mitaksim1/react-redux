@@ -1,14 +1,16 @@
 // Montrer la vidéo qctuelle de l'utilisateur
 
-import React, { Component } from 'react';
+import React from 'react';
 
-export default class Video extends Component {
-    render() {
-        return (
-            <div>
-                <strong>Module x</strong>
-                <span>Cours x</span>
-            </div>
-        )
-    }
-}
+import { connect } from 'react-redux';
+
+const Video = ({ activeModule, activeLesson }) => (
+    <div>
+        <strong>Modulo {activeModule.title}</strong>
+        <span>Aula {activeLesson.title}</span>
+    </div>
+)
+export default connect(state => ({
+      activeLesson: state.activeLesson,
+      activeModule: state.activeModule  
+    }))(Video);

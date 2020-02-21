@@ -4,8 +4,8 @@ import { createStore } from 'redux';
 // Initialisation de state initial avec reducer
 
 const INITIAL_STATE = {
-    activeLesson: null,
-    activeModule: null,
+    activeLesson: {},
+    activeModule: {},
     modules: [
         { 
             id: 1, title: 'Start avec React', lessons: [
@@ -23,7 +23,14 @@ const INITIAL_STATE = {
 }
 
 function reducer(state = INITIAL_STATE, action) {
-    console.log('teste');
+    console.log(action);
+    if (action.type === 'TOGGLE_LESSON') {
+        return { 
+            ...state, 
+            activeLesson: action.lesson, 
+            activeModule: action.module 
+        };
+    }
     return state;
 }
 
