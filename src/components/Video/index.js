@@ -6,8 +6,9 @@ import { connect } from 'react-redux';
 
 const Video = ({ activeModule, activeLesson }) => (
     <div>
-        <strong>Modulo {activeModule.title}</strong>
-        <span>Aula {activeLesson.title}</span>
+        <strong>Module {activeModule.title}</strong>
+        {"\n"}
+        <span>{activeLesson.title}</span>
     </div>
 )
 export default connect(state => ({
